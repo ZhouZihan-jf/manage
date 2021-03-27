@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jiudian.manage.mapper.LogMapper" >
+    <resultMap id="BaseResultMap" type="com.jiudian.manage.model.Log" >
+        <id column="listid" property="listid" jdbcType="INTEGER" />
+        <result column="householdname" property="householdname" jdbcType="VARCHAR" />
+        <result column="holdphone" property="holdphone" jdbcType="INTEGER"/>
+        <result column="starttime" property="starttime" jdbcType="DATE" />
+        <result column="endtime" property="endtime" jdbcType="DATE" />
+        <result column="money" property="money" jdbcType="DOUBLE" />
+        <result column="roomid" property="roomid" jdbcType="INTEGER" />
+        <result column="userid" property="userid" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    listid, householdname, holdphone, starttime, endtime, money, roomid, userid
+   </sql>
+    <select id="getAllUser" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from log
+    </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from log
+    where listid = #{listid,jdbcType=INTEGER}
+  </delete>
+
+    <delete id="delete" parameterType="java.lang.Integer" >
+    delete from log
+  </delete>
+
+    <insert id="insert" parameterType="com.jiudian.manage.model.Log" >
+    insert into log (listid, householdname, holdphone,
+      starttime, endtime, money,
+      roomid, userid
+      )
+    values (#{listid,jdbcType=INTEGER}, #{householdname,jdbcType=VARCHAR},
+      #{holdphone,jdbcType=INTEGER},
+      #{starttime,jdbcType=DATE}, #{endtime,jdbcType=DATE}, #{money,jdbcType=DOUBLE},
+      #{roomid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.jiudian.manage.model.Log" >
+        insert into log
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="listid != null" >
+                listid,
+            </if>
+            <if test="householdname != null" >
+                householdname,
+            </if>
+            <if test="holdphone != null" >
+                holdphone,
+            </if>
+            <if test="starttime != null" >
+                starttime,
+            </if>
+            <if test="endtime != null" >
+                endtime,
+            </if>
+            <if test="money != null" >
+                money,
+            </if>
+            <if test="roomid != null" >
+                roomid,
+            </if>
+            <if test="userid != null" >
+                userid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="listid != null" >
+                #{listid,jdbcType=INTEGER},
+            </if>
+            <if test="householdname != null" >
+                #{householdname,jdbcType=VARCHAR},
+            </if>
+            <if test="holdphone != null" >
+                #{holdphone,jdbcType=INTEGER},
+            </if>
+            <if test="starttime != null" >
+                #{starttime,jdbcType=DATE},
+            </if>
+            <if test="endtime != null" >
+                #{endtime,jdbcType=DATE},
+            </if>
+            <if test="money != null" >
+                #{money,jdbcType=DOUBLE},
+            </if>
+            <if test="roomid != null" >
+                #{roomid,jdbcType=INTEGER},
+            </if>
+            <if test="userid != null" >
+                #{userid,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jiudian.manage.mapper.IncomeMapper" >
+    <resultMap id="BaseResultMap" type="com.jiudian.manage.model.Income" >
+        <id column="inid" property="inid" jdbcType="INTEGER" />
+        <result column="tmoney" property="tmoney" jdbcType="DOUBLE" />
+        <result column="troom" property="troom" jdbcType="DOUBLE" />
+        <result column="ttime" property="ttime" jdbcType="DATE"></result>
+    </resultMap>
+    <sql id="Base_Column_List" >
+    inid,tmoney,troom,ttime
+   </sql>
+    <select id="getAllUser" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from income
+    </select>
+
+    <insert id="insert" parameterType="com.jiudian.manage.model.Income" >
+    insert into income (inid, tmoney, troom, ttime)
+    values (#{inid,jdbcType=INTEGER}, #{tmoney,jdbcType=DOUBLE}, #{troom,jdbcType=DOUBLE}, #{ttime,jdbcType=DATE})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jiudian.manage.model.Income" >
+        insert into income
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="inid != null" >
+                inid,
+            </if>
+            <if test="tmoney != null" >
+                tmoney,
+            </if>
+            <if test="troom != null" >
+                troom,
+            </if>
+            <if test="ttime != null" >
+                ttime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="inid != null" >
+                #{inid,jdbcType=INTEGER},
+            </if>
+            <if test="tmoney != null" >
+                #{tmoney,jdbcType=DOUBLE},
+            </if>
+            <if test="troom != null" >
+                #{troom,jdbcType=DOUBLE},
+            </if>
+            <if test="ttime != null" >
+                #{ttime,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select
+        sum(inid) inid,
+        sum(tmoney) tmoney,
+        sum(troom) troom
+        from income
+    </select>
+
+</mapper>

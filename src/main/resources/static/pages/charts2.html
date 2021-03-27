@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" Content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/myCenter.css">
+    <link rel="stylesheet" type="text/css" href="../css/pages.css">
+    <!-- 引入 echarts.js -->
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
+
+    <style>
+        .div-c{ float:left;width:49%;height:650px;border:1px solid #F00}
+        .div-d{ float:right;width:49%;height:650px;border:1px solid #000}
+    </style>
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main1" class="div-c"></div>
+<script type="text/javascript">
+    var pageNum = 1;
+    var pageSize = 8;
+
+    $(document).ready(function () {
+        var myChart = echarts.init(document.getElementById('main1'));
+
+        myChart.showLoading();
+        var names=[];//横坐标
+        var values=[];//纵坐标
+
+        $.ajax({
+            type:"post",
+            url:"../income/getAllIncome.do",
+            dataType:'json',
+            async:true,
+            data:{
+                'pageNum':pageNum,
+                'pageSize':pageSize
+            },
+            success:function (data) {
+                if(data){
+                    for(var i = 0;i<data.length;i++){
+                        names.push(data[i].ttime);
+                        values.push(data[i].troom);
+                    }
+
+                    myChart.hideLoading();
+                    myChart.setOption({
+                        title:{
+                            text:'月订房折线图'
+                        },
+                        tooltip:{},
+                        legend:{
+                            data:['月订房数']
+                        },
+                        xAxis:{
+                            data: names
+                        },
+                        yAxis:{
+                            type:'value'
+                        },
+                        series:[{
+                            name:'月订房数',
+                            type:'line',
+                            data: values
+                        }]
+                    });
+                }
+            },
+            error:function (errorMsg) {
+                alert("图表请求数据失败！");
+                myChart.hideLoading();
+            }
+        });
+    });
+</script>
+
+<div id="main2" class="div-d"></div>
+<script type="text/javascript">
+    var pageNum = 1;
+    var pageSize = 8;
+
+    $(document).ready(function () {
+        var myChart = echarts.init(document.getElementById('main2'));
+
+        myChart.showLoading();
+        var names=[];//横坐标
+        var values=[];//纵坐标
+
+        $.ajax({
+            type:"post",
+            url:"../income/getAllIncome.do",
+            dataType:'json',
+            async:true,
+            data:{
+                'pageNum':pageNum,
+                'pageSize':pageSize
+            },
+            success:function (data) {
+                if(data){
+                    for(var i = 0;i<data.length;i++){
+                        names.push(data[i].ttime);
+                        values.push(data[i].troom);
+                    }
+
+                    myChart.hideLoading();
+                    myChart.setOption({
+                        title:{
+                            text:'月订房柱形图'
+                        },
+                        tooltip:{},
+                        legend:{
+                            data:['月订房数']
+                        },
+                        xAxis:{
+                            data: names
+                        },
+                        yAxis:{
+                            type:'value'
+                        },
+                        series:[{
+                            name:'月订房数',
+                            type:'bar',
+                            data: values
+                        }]
+                    });
+                }
+            },
+            error:function (errorMsg) {
+                alert("图表请求数据失败！");
+                myChart.hideLoading();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
