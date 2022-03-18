@@ -11,7 +11,7 @@ import java.util.Date;
 public class Log {
     private Integer listid;
     private String householdname;
-    private Integer holdphone;
+    private long holdphone;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd", timezone = "GMT+8")
     private Date starttime;
 
@@ -37,11 +37,11 @@ public class Log {
         this.householdname = householdname;
     }
 
-    public Integer getHoldphone() {
+    public long getHoldphone() {
         return holdphone;
     }
 
-    public void setHoldphone(Integer holdphone) {
+    public void setHoldphone(long holdphone) {
         this.holdphone = holdphone;
     }
 

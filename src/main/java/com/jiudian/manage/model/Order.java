@@ -14,7 +14,7 @@ public class Order {
 
     private String id;
 
-    private Integer holdphone;
+    private long holdphone;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd", timezone = "GMT+8")
     private Date starttime;
@@ -54,11 +54,11 @@ public class Order {
         this.id = id == null ? null : id.trim();
     }
 
-    public Integer getHoldphone() {
+    public long getHoldphone() {
         return holdphone;
     }
 
-    public void setHoldphone(Integer holdphone) {
+    public void setHoldphone(long holdphone) {
         this.holdphone = holdphone;
     }
 

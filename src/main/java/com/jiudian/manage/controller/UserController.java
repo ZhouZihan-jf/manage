@@ -69,7 +69,7 @@ public class UserController {
      */
     @RequestMapping(value = "/addUser.do")
     public Map addUser(@RequestParam String useraccount, @RequestParam String password, @RequestParam String power
-            , @RequestParam String idnumber, @RequestParam int age, @RequestParam String phonenumber, @RequestParam String username){
+            ,String idnumber,@RequestParam int age, @RequestParam String phonenumber, @RequestParam String username){
         boolean add = userService.addUser(useraccount,password,Integer.parseInt(power),idnumber,age,phonenumber,username);
         StateSignal signal = new StateSignal();
         if(add){

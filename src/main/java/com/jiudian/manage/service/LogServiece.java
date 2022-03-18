@@ -16,7 +16,7 @@ public interface LogServiece {
      * @param userid
      * @return
      */
-    public boolean addLog(String householdname, int holdphone, String starttime, String endtime, double money,int roomid, int userid);
+    public boolean addLog(String householdname, long holdphone, String starttime, String endtime, double money,int roomid, int userid);
 
     //查询订单列表
     public List<Log> getAllLog(int pageNum, int pageSize);

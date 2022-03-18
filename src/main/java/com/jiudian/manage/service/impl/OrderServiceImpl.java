@@ -24,7 +24,7 @@ public class OrderServiceImpl implements OrderService {
     ConfigMapper configMapper;
 
     @Override
-    public boolean addOrder(String householdname, String id, int holdphone,String starttime, String endtime, int roomid, int userid) {
+    public boolean addOrder(String householdname, String id, long holdphone,String starttime, String endtime, int roomid, int userid) {
         Room room = roomMapper.selectByPrimaryKey(roomid);
         if(room.getState()!=1){
             return false;
@@ -41,10 +41,6 @@ public class OrderServiceImpl implements OrderService {
         double money = TimeUtil.getBetweenDay(starttime,endtime)*room.getMoney();
         order.setMoney(money);
 
-        Config config = configMapper.selectByPrimaryKey(1);
-        config.setTotalroom(config.getTotalroom()+1);
-        config.setTotalmoney(config.getTotalmoney()+money);
-        configMapper.updateByPrimaryKeySelective(config);
 
         int insert = orderMapper.insertSelective(order);
         if(insert>0){
@@ -89,11 +85,21 @@ public class OrderServiceImpl implements OrderService {
         Room room = new Room();
         room.setRoomid(roomid);
         int i = 1;
+        if(state==1){
+            Config config = configMapper.selectByPrimaryKey(1);
+            config.setTotalroom(config.getTotalroom()+1);
+            config.setTotalmoney(config.getTotalmoney()+order.getMoney());
+            configMapper.updateByPrimaryKeySelective(config);
+        }
         if(state==2){
             room.setState(3);
             i = roomMapper.updateByPrimaryKeySelective(room);
         }
         if(state==3){
+            room.setState(1);
+            i = roomMapper.updateByPrimaryKeySelective(room);
+        }
+        if(state==4){
             room.setState(1);
             i = roomMapper.updateByPrimaryKeySelective(room);
         }
@@ -111,5 +117,17 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getAllOrder(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         return orderMapper.getAllUser();
+    }
+
+    @Override
+    public List<Order> getListByPhone(int pageNum, int pageSize,long holdphone) {
+        PageHelper.startPage(pageNum,pageSize);
+        return orderMapper.getListByPhone(holdphone);
+    }
+
+    @Override
+    public List<Order> getListByUser(int pageNum, int pageSize, int userid) {
+        PageHelper.startPage(pageNum,pageSize);
+        return orderMapper.getListByUser(userid);
     }
 }

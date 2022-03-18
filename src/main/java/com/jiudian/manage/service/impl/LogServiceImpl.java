@@ -18,7 +18,7 @@ public class LogServiceImpl implements LogServiece {
     LogMapper logMapper;
 
     @Override
-    public boolean addLog(String householdname, int holdphone, String starttime, String endtime, double money, int roomid, int userid) {
+    public boolean addLog(String householdname, long holdphone, String starttime, String endtime, double money, int roomid, int userid) {
         Log log = new Log();
         log.setHouseholdname(householdname);
         log.setHoldphone(holdphone);

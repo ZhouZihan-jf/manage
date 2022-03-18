@@ -32,7 +32,7 @@ public class OrderController {
      * @return
      */
     @RequestMapping("/addOrder.do")
-    public Map addOrder(@RequestParam String householdname,@RequestParam String id,@RequestParam int holdphone,@RequestParam String starttime,@RequestParam String endtime,@RequestParam int roomid,@RequestParam int userid){
+    public Map addOrder(@RequestParam String householdname,@RequestParam String id,@RequestParam long holdphone,@RequestParam String starttime,@RequestParam String endtime,@RequestParam int roomid,@RequestParam int userid){
         boolean b = orderService.addOrder(householdname, id, holdphone, starttime, endtime, roomid, userid);
         StateSignal signal = new StateSignal();
         if(b){
@@ -52,6 +52,7 @@ public class OrderController {
      */
     @RequestMapping("/delOrder.do")
     public Map delOrder(@RequestParam int orderid){
+
         boolean b = orderService.delOrder(orderid);
         StateSignal signal = new StateSignal();
         if(b){
@@ -92,6 +93,40 @@ public class OrderController {
             signal.put(State.SuccessCode);
             signal.put(State.SuccessMessage);
             signal.put("List",allOrder);
+            signal.put("pageNum",pageNum);
+            signal.put("pageSize",pageSize);
+        }else {
+            signal.put(State.ErrorCode);
+            signal.put(State.ErrorMessage);
+        }
+        return  signal.getResult();
+    }
+
+    @RequestMapping("/searchOrder.do")
+    public Map getOrderByPhoneOrState(@RequestParam int pageNum,@RequestParam int pageSize,@RequestParam long holdphone){
+        List<Order> OrderList = orderService.getListByPhone(pageNum,pageSize,holdphone);
+        StateSignal signal = new StateSignal();
+        if(OrderList!=null){
+            signal.put(State.SuccessCode);
+            signal.put(State.SuccessMessage);
+            signal.put("List",OrderList);
+            signal.put("pageNum",pageNum);
+            signal.put("pageSize",pageSize);
+        }else {
+            signal.put(State.ErrorCode);
+            signal.put(State.ErrorMessage);
+        }
+        return  signal.getResult();
+    }
+
+    @RequestMapping("/searchOrderByUser.do")
+    public Map getOrderByUser(@RequestParam int pageNum,@RequestParam int pageSize,@RequestParam int userid){
+        List<Order> OrderList = orderService.getListByUser(pageNum,pageSize,userid);
+        StateSignal signal = new StateSignal();
+        if(OrderList!=null){
+            signal.put(State.SuccessCode);
+            signal.put(State.SuccessMessage);
+            signal.put("List",OrderList);
             signal.put("pageNum",pageNum);
             signal.put("pageSize",pageSize);
         }else {

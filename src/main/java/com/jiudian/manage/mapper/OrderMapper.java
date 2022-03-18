@@ -20,4 +20,8 @@ public interface OrderMapper {
     int updateByPrimaryKey(Order record);
 
     List<Order> getAllUser();
+
+    List<Order> getListByPhone(long holdphone);
+
+    List<Order> getListByUser(Integer userid);
 }

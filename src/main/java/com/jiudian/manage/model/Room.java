@@ -16,6 +16,16 @@ public class Room {
 
     private Integer type;
 
+    private String roomUrl;
+
+    public String getRoomUrl() {
+        return roomUrl;
+    }
+
+    public void setRoomUrl(String roomUrl) {
+        this.roomUrl = roomUrl;
+    }
+
     public Integer getRoomid() {
         return roomid;
     }

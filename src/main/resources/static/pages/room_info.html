@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" Content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/myCenter.css">
+    <link rel="stylesheet" type="text/css" href="../css/pages.css">
+    <style>
+        .one{
+            float: left;
+            /*display: inline-block;*/
+            width: 50%;
+            height: 40%;
+            word-wrap: break-word;
+            /*//   border-bottom: 3px solid red;*/
+        }
+        .two{
+            /*display: inline-block;*/
+            float: right;
+            position: relative;
+            width: 50%;
+            height: 40%;
+            /*border-bottom: 3px solid green;*/
+        }
+    </style>
+
+</head>
+<body>
+<div class="panel-title" align="center">
+    <h2 class="h2" id="roomname"></h2>
+    <p id="roomtype"></p>
+    <p id="money"></p>
+</div>
+<div align="center">
+    <div class="one">
+        <img src="" id="roomimg" height="100%" width="100%">
+        <input type="button" width="200px" class="btn btn-success" id="" data-toggle="modal" data-target="#chooseRoom" value="订房">
+    </div>
+    <div style="height:800px;border:1px solid gray;margin:-5px auto" id="allmap" class="two"></div>
+</div>
+</body>
+
+<div class="modal fade" id="chooseRoom" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">订房</h4>
+            </div>
+            <div class="modal-body" style="width: 80%;padding-left:20%">
+                <!--
+                <div class="form-group alterinfo">位置：
+                  <span id="inputLocal"></span>
+                </div>
+                 -->
+                <div class="form-group alterinfo">入住人姓名：
+                    <label for="inputName">inputName</label>
+                    <input type="text" name="inputName" class="form-control" id="inputName">
+                </div>
+                <div class="form-group alterinfo">身份证号：
+                    <label for="inputId">inputId</label>
+                    <input type="text" name="inputId" class="form-control" id="inputId">
+                </div>
+                <div class="form-group alterinfo">电话号码：
+                    <label for="inputPhone">inputPhone</label>
+                    <input type="text" name="inputPhone" class="form-control" id="inputPhone">
+                </div>
+                <div class="form-group alterinfo">开始日期：
+                    <label for="dateStart">inputStart</label>
+                    <input type="text" name="inputStart" class="form-control"  data-provide="datepicker" id="dateStart">
+                </div>
+                <div class="form-group alterinfo">结束日期：
+                    <label for="dateEnd">inputEnd</label>
+                    <input type="text" name="inputEnd" class="form-control" data-provide="datepicker" id="dateEnd">
+                </div>
+                <div class="form-group alterinfo">
+                    <input type="button" id="addOrder" class="btn btn-success" value="确定"/>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</html>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="../js/bootstrap-datepicker.zh-CN.min.js"></script>
+<script type="text/javascript" src="../js/room_info.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=134db1b9cf1f1f2b4427210932b34dcb"></script>
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");    // 创建Map实例
+    map.centerAndZoom(new BMap.Point(121.915822,30.902461), 11);  // 初始化地图,设置中心点坐标和地图级别
+    //添加地图类型控件
+    map.addControl(new BMap.MapTypeControl({
+        mapTypes:[
+            BMAP_NORMAL_MAP,
+            BMAP_HYBRID_MAP
+        ]}));
+    map.setCurrentCity("上海");          // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+</script>

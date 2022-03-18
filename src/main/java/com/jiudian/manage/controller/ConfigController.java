@@ -15,7 +15,7 @@ import java.util.Map;
 @RestController
 @Api(value = "配置控制器")
 @RequestMapping(value = "/config")
-public class ConfigController {
+public class  ConfigController {
     @Autowired
     ConfigService configService;
 

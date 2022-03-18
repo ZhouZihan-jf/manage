@@ -23,7 +23,7 @@ public class LogController {
     LogServiceImpl logService;
 
     @RequestMapping("/addLog.do")
-    public Map addLog(@RequestParam String householdname, @RequestParam int holdphone,
+    public Map addLog(@RequestParam String householdname, @RequestParam long holdphone,
                       @RequestParam String starttime, @RequestParam String endtime,@RequestParam double money,
                       @RequestParam int roomid, @RequestParam int userid){
         boolean b = logService.addLog(householdname,holdphone,starttime,endtime,money,roomid,userid);

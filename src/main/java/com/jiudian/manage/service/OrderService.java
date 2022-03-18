@@ -17,7 +17,7 @@ public interface OrderService {
      * @param userid
      * @return
      */
-    public boolean addOrder(String householdname, String id,int holdphone, String starttime, String endtime, int roomid, int userid);
+    public boolean addOrder(String householdname, String id,long holdphone, String starttime, String endtime, int roomid, int userid);
 
     /**
      * 删除订单
@@ -39,5 +39,15 @@ public interface OrderService {
      * @return
      */
     public List<Order> getAllOrder(int pageNum, int pageSize);
+
+    /**
+     *获取所有订单
+     * @param holdphone
+     * @return
+     */
+
+    public List<Order> getListByPhone(int pageNum,int pageSize,long holdphone);
+
+    public List<Order> getListByUser(int pageNum,int pageSize,int userid);
 
 }
